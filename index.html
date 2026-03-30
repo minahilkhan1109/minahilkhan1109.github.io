@@ -15,15 +15,12 @@
   <nav class="nav" id="nav">
     <div class="nav__inner">
       <a href="#home" class="nav__brand">Minahil.</a>
-      <ul class="nav__links" id="navLinks">
+      <ul class="nav__links">
         <li><a href="#home" class="nav__link nav__link--active">Home</a></li>
         <li><a href="#about" class="nav__link">About Me</a></li>
         <li><a href="#cv" class="nav__link">CV</a></li>
         <li><a href="#contact" class="nav__link">Contact</a></li>
       </ul>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
-      </button>
     </div>
   </nav>
 
@@ -224,74 +221,5 @@
       </div>
     </div>
   </section>
-
-  <!-- ========================================
-       JavaScript
-       ======================================== -->
-  <script>
-    // Navigation scroll effect
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
-    });
-
-    // Mobile menu toggle
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-    });
-
-    // Close mobile menu on link click
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-      });
-    });
-
-    // Active nav link highlight
-    const sections = document.querySelectorAll('section[id]');
-    const navLinkElements = document.querySelectorAll('.nav__link');
-
-    function highlightNav() {
-      const scrollY = window.scrollY + 100;
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionId = section.getAttribute('id');
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-          navLinkElements.forEach(link => {
-            link.classList.remove('nav__link--active');
-            if (link.getAttribute('href') === '#' + sectionId) {
-              link.classList.add('nav__link--active');
-            }
-          });
-        }
-      });
-    }
-
-    window.addEventListener('scroll', highlightNav);
-
-    // Scroll-triggered animations (Intersection Observer)
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-      observer.observe(el);
-    });
-
-  </script>
-
 </body>
 </html>
